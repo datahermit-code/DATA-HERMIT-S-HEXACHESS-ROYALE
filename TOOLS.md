@@ -45,6 +45,8 @@
 - `agents/compiler/` -- DataHerald (implementation)
 - `agents/analyst/` -- DataDaemon (translation/testing)
 - `agents/arbiter/` -- DataFortuna (project lead/QA)
+- `agents/sensei/` -- DataSensei (training overseer)
+- `agents/forge/` -- DataForge (training processor & language refiner)
 
 ### Shared Communication Hub
 - `shared/` -- Inter-agent task and result exchange (see AGENTS.md for directory structure)

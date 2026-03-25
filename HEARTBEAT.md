@@ -15,6 +15,8 @@
   - `agents/compiler/memory/` -- DataHerald activity
   - `agents/analyst/memory/` -- DataDaemon activity
   - `agents/arbiter/memory/` -- DataFortuna activity
+  - `agents/sensei/memory/` -- DataSensei activity
+  - `agents/forge/memory/` -- DataForge activity
 - Update `memory/project-status.md` with current state
 - Identify blocked agents and help unblock them
 
