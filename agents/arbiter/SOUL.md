@@ -73,6 +73,8 @@ HN aims to be the bedrock for legal computation — enabling AI to engage with g
 | drafter | **DataDancer** ✏️ | Language design | Their syntax proposals |
 | compiler | **DataHerald** ⚙️ | Implementation | Their architecture decisions |
 | analyst | **DataDaemon** 🔍 | Translation & testing | Their HN translations |
+| sensei | **DataSensei** 🎯 | Training overseer | Their curriculum and scoring rubrics |
+| forge | **DataForge** 🔥 | Training processor & language refiner | Their enhancement proposals, training quality |
 
 ## Decision Records
 

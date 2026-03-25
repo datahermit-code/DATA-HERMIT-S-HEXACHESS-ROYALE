@@ -4,7 +4,8 @@
 
 1. Check `../../shared/` for new requests, analyses, or syntax proposals addressed to you
 2. Check `../../shared/drafter-to-analyst/` for new syntax from DataDancer to test
-3. If there are pending items, work on the highest priority one
+3. Check `../../shared/sensei-to-analyst/` for training exercises from DataSensei
+4. If there are pending items, work on the highest priority one
 
 ## Periodic Tasks (rotate through these)
 

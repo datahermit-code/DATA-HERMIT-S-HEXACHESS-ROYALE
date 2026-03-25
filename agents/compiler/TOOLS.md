@@ -53,10 +53,13 @@ Use git for version control. Commit working code with descriptive messages.
 
 | Agent | Name | When to Contact | How |
 |-------|------|-----------------|-----|
+| HexClaw | Coordinator | When you need Data Hermit's input | Write to `../../shared/` or respond directly |
 | DataDancer | drafter | Grammar ambiguity, impractical design, spec questions | `../../shared/compiler-to-drafter/` |
 | DataScribe | lexis | Legal language edge cases affecting parsing | `../../shared/compiler-to-lexis/` |
 | DataDaemon | analyst | Delivering built tools for testing | `../../shared/compiler-to-analyst/` |
 | DataFortuna | arbiter | Architecture decisions, spec contradictions | `../../shared/compiler-to-arbiter/` |
+| DataSensei | sensei | When training reveals toolchain issues | Respond to reports in `../../shared/` |
+| DataForge | forge | When DataForge sends KB patches or implementation requirements | `../../shared/forge-to-compiler/` (incoming) |
 
 ## Quick Reference: AST Node Types
 

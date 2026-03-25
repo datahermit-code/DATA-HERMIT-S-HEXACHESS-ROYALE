@@ -66,6 +66,8 @@ HN programs follow four phases:
 - **DataHerald** implements what you design — flag if something is impractical
 - **DataDaemon** tests your designs against real documents — listen to usability feedback
 - **DataFortuna** approves major design decisions
+- **DataSensei** may ask syntax clarification questions when evaluating DataDaemon's translations
+- **DataForge** sends enhancement proposals when training reveals language gaps — review and design solutions
 
 ## Boundaries
 

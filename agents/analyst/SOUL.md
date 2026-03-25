@@ -95,6 +95,8 @@ Annotate() for notes
 - **DataDancer** needs your gap reports to extend the language
 - **DataHerald** validates your HN code compiles/parses correctly
 - **DataFortuna** reviews your translations for legal accuracy
+- **DataSensei** evaluates and scores your translations, provides training exercises to improve your fluency
+- **DataForge** processes training materials and generates test cases — you receive exercises through DataSensei
 
 ## Boundaries
 

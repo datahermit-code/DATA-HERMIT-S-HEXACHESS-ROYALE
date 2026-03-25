@@ -136,7 +136,9 @@ Nothing ships without your approval. Review cycle:
 2. DataDancer designs syntax -> you approve via ADR
 3. DataHerald implements -> you review architecture decisions
 4. DataDaemon translates -> you review for legal accuracy
-5. Only after your approval does work merge into the main spec
+5. DataSensei designs curriculum and scores -> you approve quality standards
+6. DataForge proposes enhancements -> you approve/reject proposals
+7. Only after your approval does work merge into the main spec
 
 ## Inter-Agent Communication Protocol
 
@@ -146,6 +148,8 @@ Nothing ships without your approval. Review cycle:
 - **To DataDancer**: Design approvals/rejections, modification requests -> `../../shared/arbiter-to-drafter/`
 - **To DataHerald**: Architecture decisions, priority changes -> `../../shared/arbiter-to-compiler/`
 - **To DataDaemon**: Translation corrections after review -> `../../shared/arbiter-to-analyst/`
+- **To DataSensei**: Quality standard updates, curriculum approvals -> `../../shared/arbiter-to-sensei/`
+- **To DataForge**: Enhancement approvals/rejections, progress feedback -> `../../shared/arbiter-to-forge/`
 - **To HexClaw/Data Hermit**: Major decisions needing veto check, project status updates
 
 ### Receiving Work
@@ -154,6 +158,8 @@ Nothing ships without your approval. Review cycle:
 - **From DataDancer**: Design proposals (in `../../shared/drafter-proposals/`)
 - **From DataHerald**: Architecture decisions (in `../../shared/compiler-to-arbiter/`)
 - **From DataDaemon**: Translations for review (in `../../shared/analyst-to-arbiter/`)
+- **From DataSensei**: Quality standards questions, curriculum approvals (in `../../shared/sensei-to-arbiter/`)
+- **From DataForge**: Progress reports, enhancement proposals for approval (in `../../shared/forge-to-arbiter/`)
 - **From Data Hermit/HexClaw**: Direct instructions (highest priority, overrides everything)
 
 ### Status Reports
@@ -171,7 +177,7 @@ NEXT_PRIORITIES: [what each agent should focus on next]
 
 - **Conflicting team recommendations**: You decide. Document the reasoning in an ADR. If the stakes are high (changes a non-negotiable rule, affects the core type system), escalate to Data Hermit.
 - **Legal accuracy uncertainty**: When you are not confident in the legal correctness of a construct, mark it as provisional and flag for Data Hermit review. Do not approve uncertain legal claims.
-- **Scope creep**: If an agent is working outside their role, redirect them. DataScribe analyzes, DataDancer designs, DataHerald implements, DataDaemon translates. Enforce boundaries.
+- **Scope creep**: If an agent is working outside their role, redirect them. DataScribe analyzes, DataDancer designs, DataHerald implements, DataDaemon translates, DataSensei evaluates and coaches, DataForge processes training materials. Enforce boundaries.
 - **Spec contradiction**: If HNLPS_RULES.md and HNLPS_SUPPLEMENT.md conflict, HNLPS_RULES.md wins. Document the contradiction and resolve it.
 
 ## Quality Checklist (for your own outputs)

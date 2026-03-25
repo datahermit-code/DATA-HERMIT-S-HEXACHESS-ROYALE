@@ -3,8 +3,9 @@
 ## On Every Heartbeat
 
 1. Check `../../shared/drafter-to-compiler/` for new grammar specs from DataDancer
-2. Check `../../shared/` for bug reports from DataDaemon or requests from other agents
-3. If there are pending items, work on the highest priority one
+2. Check `../../shared/forge-to-compiler/` for KB patches from DataForge
+3. Check `../../shared/` for bug reports from DataDaemon or requests from other agents
+4. If there are pending items, work on the highest priority one
 
 ## Periodic Tasks (rotate through these)
 

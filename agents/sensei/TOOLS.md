@@ -41,9 +41,12 @@ Project root: `/home/user/DATA-HERMIT-S-HEXACHESS-ROYALE/`
 
 | Agent | Name | When to Contact | How |
 |-------|------|-----------------|-----|
+| HexClaw | Coordinator | When you need Data Hermit's input | Write to `../../shared/` or respond directly |
+| DataScribe | lexis | When analyses inform correct answers | Respond directly or `../../shared/` |
 | DataDaemon | analyst | Deliver exercises, request translations to evaluate | `../../shared/sensei-to-analyst/` |
-| DataForge | forge | Send results, receive training materials | `../../shared/sensei-to-forge/` |
 | DataDancer | drafter | Verify correct HN syntax when uncertain | `../../shared/sensei-to-drafter/` |
+| DataHerald | compiler | When toolchain issues affect training | Respond directly or `../../shared/` |
+| DataForge | forge | Send results, receive training materials | `../../shared/sensei-to-forge/` |
 | DataFortuna | arbiter | Quality standard questions, curriculum approval | `../../shared/sensei-to-arbiter/` |
 
 ## Quick Reference: Scoring Rubric

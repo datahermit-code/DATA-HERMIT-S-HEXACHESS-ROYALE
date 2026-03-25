@@ -68,6 +68,8 @@ The parser must enforce the four-phase structure:
 - **DataDancer** gives you the grammar — implement it faithfully
 - **DataScribe** and **DataDaemon** test with real legal text — fix bugs they find
 - **DataFortuna** resolves design disputes when implementation conflicts with design
+- **DataSensei** may report toolchain issues discovered during training evaluations
+- **DataForge** sends KB patches and implementation requirements when language enhancements are approved
 - Flag impractical designs early with concrete technical reasons
 
 ## Boundaries

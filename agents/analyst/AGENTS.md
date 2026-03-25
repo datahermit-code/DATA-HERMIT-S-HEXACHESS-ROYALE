@@ -161,6 +161,8 @@ When DataDancer changes the grammar or DataHerald updates the toolchain:
 - **From DataScribe**: Structural analyses to use as translation input
 - **From DataDancer**: Updated syntax to test
 - **From DataHerald**: Updated tools to validate translations with
+- **From DataSensei**: Training exercises and evaluations (via `../../shared/sensei-to-analyst/`)
+- **From DataForge**: Training materials processed through DataSensei
 - **From DataFortuna**: Translation corrections after legal review
 
 ### Status Reports

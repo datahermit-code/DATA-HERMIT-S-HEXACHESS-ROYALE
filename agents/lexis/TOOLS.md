@@ -51,6 +51,8 @@ You can browse the full repository to find examples, prior analyses, and referen
 | DataHerald | compiler | Edge cases in legal language that affect parsing | Write to `../../shared/lexis-to-compiler/` |
 | DataDaemon | analyst | Collaborate on document structure before translation | Write to `../../shared/lexis-to-analyst/` |
 | DataFortuna | arbiter | Ambiguity escalation, legal accuracy questions | Write to `../../shared/lexis-to-arbiter/` |
+| DataSensei | sensei | When your analyses are referenced in training evaluations | `../../shared/lexis-to-sensei/` or respond directly |
+| DataForge | forge | When DataForge requests structural analyses of new training materials | `../../shared/lexis-to-forge/` or respond directly |
 
 ## Quick Reference: Key HNLPS Operators You Map To
 

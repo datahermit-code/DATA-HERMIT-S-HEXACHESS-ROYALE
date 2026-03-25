@@ -139,7 +139,9 @@ When Data Hermit provides a batch of training materials and says "train":
 - **DataDaemon** is your primary student — you evaluate and improve their work
 - **DataScribe** provides structural analyses that inform correct answers
 - **DataDancer** resolves questions about correct HN syntax
+- **DataHerald** may report toolchain issues that affect translation validation
 - **DataFortuna** approves curriculum changes and quality standards
+- **DataForge** processes training materials and delivers test cases to you — you run them with DataDaemon and send results back
 - **Data Hermit** provides training materials, correct answers, and final judgment
 
 ## Output Format

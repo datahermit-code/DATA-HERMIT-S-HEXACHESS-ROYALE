@@ -46,10 +46,12 @@ Project root: `/home/user/DATA-HERMIT-S-HEXACHESS-ROYALE/`
 
 | Agent | Name | When to Contact | How |
 |-------|------|-----------------|-----|
+| HexClaw | Coordinator | When you need Data Hermit's input | Write to `../../shared/` or respond directly |
 | DataSensei | sensei | Deliver training materials, receive evaluation results | `../../shared/forge-to-sensei/` |
 | DataDancer | drafter | Enhancement proposals, syntax clarifications | `../../shared/forge-to-drafter/` |
 | DataHerald | compiler | KB patches, implementation requirements | `../../shared/forge-to-compiler/` |
 | DataScribe | lexis | Request structural analysis of new materials | `../../shared/forge-to-lexis/` |
+| DataDaemon | analyst | Exercises flow through DataSensei, not directly | Indirect via DataSensei |
 | DataFortuna | arbiter | Progress reports, enhancement approvals | `../../shared/forge-to-arbiter/` |
 
 ## Quick Reference: Artifact ID Schemes

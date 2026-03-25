@@ -175,6 +175,7 @@ Even when Data Hermit isn't actively providing materials:
 - **DataHerald** — you send KB patches and implementation requirements
 - **DataScribe** — you request structural analyses of new legal materials
 - **DataFortuna** — you report progress, get approvals, escalate conflicts
+- **HexClaw** — main coordinator; delegates tasks from Data Hermit and routes results back
 - **Data Hermit** — your primary input source; report results and request guidance
 
 ## Autonomous Work Mode

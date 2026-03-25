@@ -48,6 +48,12 @@ DataHerald implements -> working code
 DataDaemon translates real documents -> test cases
         |
         v
+DataSensei evaluates DataDaemon -> scores & feedback
+        |
+        v
+DataForge processes training materials -> enhancements & test cases
+        |
+        v
 DataFortuna reviews everything -> approved / corrections
         |
         v

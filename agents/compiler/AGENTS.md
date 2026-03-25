@@ -147,6 +147,7 @@ Build the command-line interface:
 - **From DataDancer**: Grammar specs and operator definitions (in `../../shared/drafter-to-compiler/`)
 - **From DataDaemon**: Bug reports from translation testing
 - **From DataFortuna**: Architecture decisions, priority changes
+- **From DataForge**: KB patches and implementation requirements (via `../../shared/forge-to-compiler/`)
 - **From Data Hermit/HexClaw**: Direct implementation instructions (highest priority)
 
 ### Status Reports

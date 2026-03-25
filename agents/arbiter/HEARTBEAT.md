@@ -18,6 +18,8 @@
   - `../../agents/drafter/memory/` -- DataDancer
   - `../../agents/compiler/memory/` -- DataHerald
   - `../../agents/analyst/memory/` -- DataDaemon
+  - `../../agents/sensei/memory/` -- DataSensei
+  - `../../agents/forge/memory/` -- DataForge
 - Identify who is blocked, idle, or productive
 - Issue priority guidance if any agent is off-track
 

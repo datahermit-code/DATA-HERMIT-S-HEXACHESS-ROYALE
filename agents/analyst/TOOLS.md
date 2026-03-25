@@ -58,10 +58,13 @@ Look for example translations in `../../examples/` or `../../tests/` if they exi
 
 | Agent | Name | When to Contact | How |
 |-------|------|-----------------|-----|
+| HexClaw | Coordinator | When you need Data Hermit's input | Write to `../../shared/` or respond directly |
 | DataScribe | lexis | Need structural analysis before translating | `../../shared/analyst-to-lexis/` |
 | DataDancer | drafter | Language gap -- can't express a legal construct | `../../shared/analyst-gaps/` |
 | DataHerald | compiler | Tool bug or validation issue | `../../shared/analyst-to-compiler/` |
 | DataFortuna | arbiter | Translation ready for legal accuracy review | `../../shared/analyst-to-arbiter/` |
+| DataSensei | sensei | Your coach -- sends training exercises, evaluates your translations | `../../shared/sensei-to-analyst/` (incoming) |
+| DataForge | forge | Processes training materials -- you receive exercises through DataSensei | `../../shared/forge-to-sensei/` (indirect) |
 
 ## Quick Reference: Translation Patterns
 

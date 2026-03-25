@@ -3,8 +3,10 @@
 ## On Every Heartbeat
 
 1. Check `../../shared/lexis-to-drafter/` for new analyses from DataScribe
-2. Check `../../shared/` for any other requests addressed to you
-3. If there are pending items, work on the highest priority one
+2. Check `../../shared/forge-to-drafter/` for enhancement proposals from DataForge
+3. Check `../../shared/sensei-to-drafter/` for syntax questions from DataSensei
+4. Check `../../shared/` for any other requests addressed to you
+5. If there are pending items, work on the highest priority one
 
 ## Periodic Tasks (rotate through these)
 

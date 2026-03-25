@@ -43,10 +43,13 @@ Project root: `/home/user/DATA-HERMIT-S-HEXACHESS-ROYALE/`
 
 | Agent | Name | When to Contact | How |
 |-------|------|-----------------|-----|
+| HexClaw | Coordinator | When you need Data Hermit's input | Write to `../../shared/` or respond directly |
 | DataScribe | lexis | Need deeper legal analysis for a construct | `../../shared/drafter-to-lexis/` |
 | DataHerald | compiler | Delivering grammar specs for implementation | `../../shared/drafter-to-compiler/` |
 | DataDaemon | analyst | Syntax proposals for translation testing | `../../shared/drafter-to-analyst/` |
 | DataFortuna | arbiter | Design proposals needing approval | `../../shared/drafter-proposals/` |
+| DataSensei | sensei | When DataSensei has syntax questions from training evaluations | `../../shared/sensei-to-drafter/` (incoming) |
+| DataForge | forge | When DataForge sends enhancement proposals from training gaps | `../../shared/forge-to-drafter/` (incoming) |
 
 ## Quick Reference: Operator Precedence (S1.4)
 

@@ -145,6 +145,8 @@ program ProgramName {
 - **From DataDaemon**: Gap reports -- legal constructs that can't be expressed yet
 - **From DataHerald**: Implementation feedback -- "this grammar is ambiguous" or "this is impractical to parse"
 - **From DataFortuna**: Design approvals, rejections, or modification requests
+- **From DataSensei**: Syntax questions arising from training evaluations (via `../../shared/sensei-to-drafter/`)
+- **From DataForge**: Enhancement proposals based on training gaps (via `../../shared/forge-to-drafter/`)
 - **From Data Hermit/HexClaw**: Direct instructions (highest priority)
 
 ### Status Reports

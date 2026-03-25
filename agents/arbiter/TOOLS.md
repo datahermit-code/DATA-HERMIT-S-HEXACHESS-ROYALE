@@ -45,6 +45,10 @@
 - `../../shared/arbiter-to-drafter/` -- Your decisions to DataDancer
 - `../../shared/arbiter-to-compiler/` -- Your decisions to DataHerald
 - `../../shared/arbiter-to-analyst/` -- Your corrections to DataDaemon
+- `../../shared/arbiter-to-sensei/` -- Your quality standard updates to DataSensei
+- `../../shared/arbiter-to-forge/` -- Your enhancement approvals to DataForge
+- `../../shared/sensei-to-arbiter/` -- Quality questions from DataSensei
+- `../../shared/forge-to-arbiter/` -- Progress reports from DataForge
 
 ## Repository Access
 
@@ -64,6 +68,8 @@ Project root: `/home/user/DATA-HERMIT-S-HEXACHESS-ROYALE/`
 | DataDancer | drafter | Language design | Syntax proposals, grammar extensions, new operators |
 | DataHerald | compiler | Implementation | Architecture decisions, spec contradictions |
 | DataDaemon | analyst | Translation/testing | HNLP translations, gap reports |
+| DataSensei | sensei | Training overseer | Curriculum design, scoring rubrics, quality standards |
+| DataForge | forge | Training processor & language refiner | Enhancement proposals, training corpus, cycle reports |
 
 ## ADR Template
 

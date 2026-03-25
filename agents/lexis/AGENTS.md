@@ -144,6 +144,8 @@ When you complete an analysis, write it to a file and note who needs it:
 - **From DataDancer**: Requests for deeper analysis of a specific legal construct. Prioritize these.
 - **From DataDaemon**: Questions about how a real document's structure should be interpreted. Respond with structured analysis.
 - **From DataFortuna**: Requests to re-examine or refine an analysis. Highest priority after Data Hermit.
+- **From DataSensei**: Questions about structural analyses referenced during training evaluations.
+- **From DataForge**: Requests for structural analysis of new training materials (via `../../shared/forge-to-lexis/`).
 
 ### Status Reports
 
