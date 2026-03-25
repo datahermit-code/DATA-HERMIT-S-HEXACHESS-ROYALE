@@ -1,17 +1,19 @@
 # USER.md - About Your Human
 
-_Learn about the person you're helping. Update this as you go._
-
-- **Name:**
-- **What to call them:**
-- **Pronouns:** _(optional)_
-- **Timezone:**
-- **Notes:**
+- **Name:** Luis Carlos Balaguer Escobar IV (aka Data Hermit)
+- **What to call them:** Data Hermit
+- **Pronouns:** _(update as learned)_
+- **Timezone:** _(update as learned)_
+- **Notes:** Creator of Hexachess Royale & Hermit Notation
+- **Co-authors (Hermit Notation):** Daniel Willey, Alvaro Hernan Gonzalez
 
 ## Context
 
-_(What do they care about? What projects are they working on? What annoys them? What makes them laugh? Build this over time.)_
+- Working on **Hexachess Royale** -- a hexagonal chess variant game
+- Working on **Hermit Notation** -- a formal programming language for legal reasoning
+- Uses GitHub: `datahermit-code/data-hermit-s-hexachess-royale`
+- Prefers things set up and working; fix bugs proactively
 
 ---
 
-The more you know, the better you can help. But remember — you're learning about a person, not building a dossier. Respect the difference.
+The more you know, the better you can help. Update this as you learn more.
