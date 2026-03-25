@@ -1,7 +1,5 @@
-# ═══════════════════════════════════════════════════════════════════
-# OpenClaw + Claw3D + Telegram — Full Install & Launch (Windows)
+# OpenClaw + Claw3D + Telegram - Full Install and Launch (Windows)
 # Run: powershell -ExecutionPolicy Bypass -File install.ps1
-# ═══════════════════════════════════════════════════════════════════
 
 $ErrorActionPreference = "Stop"
 
@@ -12,43 +10,38 @@ $TELEGRAM_BOT_TOKEN = "8757185435:AAEXfKEXfNKXVjJYAKTTLrYwiVmKoWCZTF8"
 $REPO_DIR = Split-Path -Parent $MyInvocation.MyCommand.Path
 $CLAW3D_DIR = "$env:USERPROFILE\.openclaw\Claw3D"
 
-function Log($msg) { Write-Host "`n[$((Get-Date).ToString('HH:mm:ss'))] $msg" -ForegroundColor Cyan }
-function Ok($msg)  { Write-Host "  ✓ $msg" -ForegroundColor Green }
-function Fail($msg) { Write-Host "  ✗ $msg" -ForegroundColor Red }
+function Log($msg) { Write-Host "[setup] $msg" -ForegroundColor Cyan }
+function Ok($msg)  { Write-Host "  [OK] $msg" -ForegroundColor Green }
+function Fail($msg) { Write-Host "  [FAIL] $msg" -ForegroundColor Red }
 
-# ── 1. Check Node.js ─────────────────────────────────────────────
+# 1. Check Node.js
 Log "Checking Node.js..."
-try {
-    $nodeVer = (node -v 2>$null)
-    if (-not $nodeVer) { throw "not found" }
-    $major = [int]($nodeVer -replace 'v(\d+)\..*', '$1')
-    if ($major -lt 20) {
-        Fail "Node.js $nodeVer found, but 20+ is required."
-        Write-Host "  Download: https://nodejs.org" -ForegroundColor Yellow
-        exit 1
-    }
-    Ok "Node.js $nodeVer"
-} catch {
-    Fail "Node.js not found."
-    Write-Host "  Download and install from: https://nodejs.org" -ForegroundColor Yellow
-    Write-Host "  Then re-run this script." -ForegroundColor Yellow
+$nodeVer = $null
+try { $nodeVer = (node -v 2>$null) } catch {}
+if (-not $nodeVer) {
+    Fail "Node.js not found. Download from https://nodejs.org and re-run."
     exit 1
 }
+$major = [int]($nodeVer -replace 'v(\d+)\..*', '$1')
+if ($major -lt 20) {
+    Fail "Node.js $nodeVer found but 20+ required."
+    exit 1
+}
+Ok "Node.js $nodeVer"
 
-# ── 2. Install OpenClaw ──────────────────────────────────────────
+# 2. Install OpenClaw
 Log "Installing OpenClaw..."
-try {
-    $ocVer = (openclaw --version 2>$null)
-    if ($ocVer) {
-        Ok "OpenClaw already installed: $ocVer"
-    } else { throw "not found" }
-} catch {
+$ocVer = $null
+try { $ocVer = (openclaw --version 2>$null) } catch {}
+if ($ocVer) {
+    Ok "OpenClaw already installed: $ocVer"
+} else {
     Write-Host "  Installing openclaw via npm..." -ForegroundColor Yellow
     npm install -g openclaw@latest
     Ok "OpenClaw installed"
 }
 
-# ── 3. Write OpenClaw config ─────────────────────────────────────
+# 3. Write OpenClaw config
 Log "Configuring OpenClaw..."
 $openclawDir = "$env:USERPROFILE\.openclaw"
 New-Item -ItemType Directory -Force -Path $openclawDir | Out-Null
@@ -58,21 +51,20 @@ New-Item -ItemType Directory -Force -Path "$openclawDir\logs" | Out-Null
 $timestamp = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.000Z")
 $workspacePath = $REPO_DIR -replace '\\', '/'
 
-$config = @"
-{
+$configJson = '{
   "meta": {
     "lastTouchedVersion": "2026.3.23-2",
-    "lastTouchedAt": "$timestamp"
+    "lastTouchedAt": "' + $timestamp + '"
   },
   "wizard": {
-    "lastRunAt": "$timestamp",
+    "lastRunAt": "' + $timestamp + '",
     "lastRunVersion": "2026.3.23-2",
     "lastRunCommand": "onboard",
     "lastRunMode": "local"
   },
   "agents": {
     "defaults": {
-      "workspace": "$workspacePath",
+      "workspace": "' + $workspacePath + '",
       "memorySearch": {
         "enabled": false
       }
@@ -94,21 +86,21 @@ $config = @"
     "telegram": {
       "enabled": true,
       "dmPolicy": "pairing",
-      "botToken": "$TELEGRAM_BOT_TOKEN",
+      "botToken": "' + $TELEGRAM_BOT_TOKEN + '",
       "groupPolicy": "allowlist",
       "streaming": "partial"
     }
   },
   "gateway": {
-    "port": $GATEWAY_PORT,
+    "port": ' + $GATEWAY_PORT + ',
     "mode": "local",
     "bind": "loopback",
     "controlUi": {
       "allowedOrigins": [
-        "http://localhost:$GATEWAY_PORT",
-        "http://127.0.0.1:$GATEWAY_PORT",
-        "http://localhost:$CLAW3D_PORT",
-        "http://127.0.0.1:$CLAW3D_PORT"
+        "http://localhost:' + $GATEWAY_PORT + '",
+        "http://127.0.0.1:' + $GATEWAY_PORT + '",
+        "http://localhost:' + $CLAW3D_PORT + '",
+        "http://127.0.0.1:' + $CLAW3D_PORT + '"
       ]
     },
     "auth": {
@@ -120,35 +112,34 @@ $config = @"
       "resetOnExit": false
     }
   }
-}
-"@
+}'
 
-Set-Content -Path "$openclawDir\openclaw.json" -Value $config -Encoding UTF8
-Ok "Config written to ~/.openclaw/openclaw.json"
+[System.IO.File]::WriteAllText("$openclawDir\openclaw.json", $configJson, [System.Text.Encoding]::UTF8)
+Ok "Config written"
 
-# Init session store
 $sessFile = "$openclawDir\agents\main\sessions\sessions.json"
 if (-not (Test-Path $sessFile)) {
     Set-Content -Path $sessFile -Value "{}" -Encoding UTF8
 }
 
-# ── 4. Create workspace dirs ─────────────────────────────────────
+# 4. Workspace dirs
 Log "Setting up workspace..."
 New-Item -ItemType Directory -Force -Path "$REPO_DIR\memory" | Out-Null
 New-Item -ItemType Directory -Force -Path "$REPO_DIR\.openclaw" | Out-Null
-Ok "Workspace ready: $REPO_DIR"
+Ok "Workspace ready"
 
-# ── 5. Clone & build Claw3D ──────────────────────────────────────
+# 5. Clone and build Claw3D
 Log "Setting up Claw3D Mission Control..."
 if (Test-Path "$CLAW3D_DIR\.next") {
     Ok "Claw3D already built"
 } else {
     if (-not (Test-Path $CLAW3D_DIR)) {
+        Log "Cloning Claw3D (this may take a minute)..."
         git clone https://github.com/iamlukethedev/Claw3D.git $CLAW3D_DIR
     }
 
-    # Patch layout.tsx to use system fonts
-    $layoutContent = @'
+    # Patch layout.tsx - system fonts instead of Google Fonts
+    $layoutTsx = @"
 import type { Metadata } from "next";
 import "./globals.css";
 
@@ -167,13 +158,13 @@ export default function RootLayout({
       <head>
         <style
           dangerouslySetInnerHTML={{
-            __html: `
+            __html: ``
               :root {
-                --font-display: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-                --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-                --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+                --font-display: Impact, Haettenschweiler, Arial, sans-serif;
+                --font-sans: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Arial, sans-serif;
+                --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
               }
-            `,
+            ``,
           }}
         />
         <script
@@ -189,11 +180,13 @@ export default function RootLayout({
     </html>
   );
 }
-'@
-    Set-Content -Path "$CLAW3D_DIR\src\app\layout.tsx" -Value $layoutContent -Encoding UTF8
+"@
+    # Fix the backtick escaping for JSX template literals
+    $layoutTsx = $layoutTsx -replace '``', '`'
+    [System.IO.File]::WriteAllText("$CLAW3D_DIR\src\app\layout.tsx", $layoutTsx, [System.Text.Encoding]::UTF8)
 
     # Patch next.config.ts
-    $nextConfig = @'
+    $nextCfg = @"
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
@@ -201,147 +194,127 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
-'@
-    Set-Content -Path "$CLAW3D_DIR\next.config.ts" -Value $nextConfig -Encoding UTF8
-    Ok "Claw3D patched (system fonts + external packages)"
+"@
+    [System.IO.File]::WriteAllText("$CLAW3D_DIR\next.config.ts", $nextCfg, [System.Text.Encoding]::UTF8)
+    Ok "Claw3D patched"
 
     Push-Location $CLAW3D_DIR
+    Log "Installing Claw3D dependencies (this may take a few minutes)..."
     npm install --no-audit --no-fund
     Ok "Dependencies installed"
 
+    Log "Building Claw3D (this may take a few minutes)..."
     npm run build
     Ok "Claw3D built"
     Pop-Location
 }
 
-# Write Claw3D .env
-$envContent = @"
-NEXT_PUBLIC_GATEWAY_URL=ws://127.0.0.1:$GATEWAY_PORT
-DEBUG=true
-PORT=$CLAW3D_PORT
-HOST=127.0.0.1
-STUDIO_ACCESS_TOKEN=$STUDIO_TOKEN
-"@
-Set-Content -Path "$CLAW3D_DIR\.env" -Value $envContent -Encoding UTF8
+# Write .env
+$envContent = "NEXT_PUBLIC_GATEWAY_URL=ws://127.0.0.1:$GATEWAY_PORT`nDEBUG=true`nPORT=$CLAW3D_PORT`nHOST=127.0.0.1`nSTUDIO_ACCESS_TOKEN=$STUDIO_TOKEN"
+[System.IO.File]::WriteAllText("$CLAW3D_DIR\.env", $envContent, [System.Text.Encoding]::UTF8)
 Ok "Claw3D .env written"
 
-# ── 6. Desktop shortcut ──────────────────────────────────────────
+# 6. Desktop shortcut
 Log "Creating desktop shortcut..."
 $desktopPath = [Environment]::GetFolderPath("Desktop")
 $shortcutPath = "$desktopPath\OpenClaw HexChess.lnk"
 
+# Create start-services.ps1
 $startScript = "$REPO_DIR\start-services.ps1"
-
-# Create the Windows start script
-$startPs1 = @"
+$startContent = @"
 `$ErrorActionPreference = "Continue"
-`$GATEWAY_PORT = $GATEWAY_PORT
-`$CLAW3D_PORT = $CLAW3D_PORT
-`$CLAW3D_DIR = "$($CLAW3D_DIR -replace '\\', '\\')"
-`$STUDIO_TOKEN = "$STUDIO_TOKEN"
 
-Write-Host "Stopping existing services..." -ForegroundColor Cyan
-Get-Process -Name "node" -ErrorAction SilentlyContinue | Where-Object { `$_.CommandLine -match "openclaw|claw3d|server/index" } | Stop-Process -Force -ErrorAction SilentlyContinue
-Start-Sleep -Seconds 1
+Write-Host "=== OpenClaw HexChess Launcher ===" -ForegroundColor Cyan
+Write-Host ""
 
+# Stop old instances
+Write-Host "Stopping old services..." -ForegroundColor Yellow
+Get-Process -Name "node" -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
+Start-Sleep 2
+
+# Start Gateway
 Write-Host "Starting OpenClaw Gateway..." -ForegroundColor Cyan
-Start-Process -NoNewWindow -FilePath "openclaw" -ArgumentList "gateway","--port","`$GATEWAY_PORT" -RedirectStandardOutput "`$env:TEMP\openclaw-gateway.log" -RedirectStandardError "`$env:TEMP\openclaw-gateway-err.log"
-Start-Sleep -Seconds 3
-Write-Host "  Gateway running on port `$GATEWAY_PORT" -ForegroundColor Green
+Start-Process -FilePath "openclaw" -ArgumentList "gateway --port $GATEWAY_PORT" -WindowStyle Hidden
+Start-Sleep 3
+Write-Host "  Gateway running on port $GATEWAY_PORT" -ForegroundColor Green
 
-Write-Host "Starting Claw3D Mission Control..." -ForegroundColor Cyan
+# Start Claw3D
+Write-Host "Starting Claw3D..." -ForegroundColor Cyan
 `$env:HOST = "127.0.0.1"
-`$env:PORT = "`$CLAW3D_PORT"
-`$env:STUDIO_ACCESS_TOKEN = "`$STUDIO_TOKEN"
-`$env:NEXT_PUBLIC_GATEWAY_URL = "ws://127.0.0.1:`$GATEWAY_PORT"
-Push-Location "`$CLAW3D_DIR"
-Start-Process -NoNewWindow -FilePath "node" -ArgumentList "server/index.js" -RedirectStandardOutput "`$env:TEMP\claw3d.log" -RedirectStandardError "`$env:TEMP\claw3d-err.log"
-Pop-Location
-Start-Sleep -Seconds 4
-Write-Host "  Claw3D running on port `$CLAW3D_PORT" -ForegroundColor Green
+`$env:PORT = "$CLAW3D_PORT"
+`$env:STUDIO_ACCESS_TOKEN = "$STUDIO_TOKEN"
+`$env:NEXT_PUBLIC_GATEWAY_URL = "ws://127.0.0.1:$GATEWAY_PORT"
+Start-Process -FilePath "node" -ArgumentList "server/index.js" -WorkingDirectory "$CLAW3D_DIR" -WindowStyle Hidden
+Start-Sleep 4
+Write-Host "  Claw3D running on port $CLAW3D_PORT" -ForegroundColor Green
 
-Write-Host "`nOpening Claw3D in browser..." -ForegroundColor Cyan
-Start-Process "http://127.0.0.1:`$CLAW3D_PORT/office"
+# Open browser
+Start-Process "http://127.0.0.1:$CLAW3D_PORT/office"
 
 Write-Host ""
-Write-Host "========================================" -ForegroundColor Cyan
-Write-Host "  OpenClaw HexChess - READY" -ForegroundColor Green
-Write-Host "========================================" -ForegroundColor Cyan
-Write-Host "  Office:   http://127.0.0.1:`$CLAW3D_PORT/office"
-Write-Host "  Agents:   http://127.0.0.1:`$CLAW3D_PORT/agents"
-Write-Host "  Builder:  http://127.0.0.1:`$CLAW3D_PORT/office/builder"
-Write-Host "  Gateway:  http://127.0.0.1:`$GATEWAY_PORT"
+Write-Host "=== READY ===" -ForegroundColor Green
+Write-Host "  Office:   http://127.0.0.1:$CLAW3D_PORT/office"
+Write-Host "  Agents:   http://127.0.0.1:$CLAW3D_PORT/agents"
 Write-Host "  Telegram: DM your bot to pair!"
-Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
-Write-Host "Press any key to stop services and exit..."
+Write-Host "Press any key to stop services..."
 `$null = `$Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-
-Write-Host "Stopping services..." -ForegroundColor Yellow
-Get-Process -Name "node" -ErrorAction SilentlyContinue | Where-Object { `$_.CommandLine -match "openclaw|claw3d|server/index" } | Stop-Process -Force -ErrorAction SilentlyContinue
-openclaw gateway stop 2>`$null
-Write-Host "Done." -ForegroundColor Green
+Get-Process -Name "node" -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
 "@
+[System.IO.File]::WriteAllText($startScript, $startContent, [System.Text.Encoding]::UTF8)
 
-Set-Content -Path $startScript -Value $startPs1 -Encoding UTF8
-Ok "start-services.ps1 created"
-
-# Create .lnk shortcut
+# Create .lnk
 $WshShell = New-Object -ComObject WScript.Shell
 $Shortcut = $WshShell.CreateShortcut($shortcutPath)
 $Shortcut.TargetPath = "powershell.exe"
 $Shortcut.Arguments = "-ExecutionPolicy Bypass -File `"$startScript`""
 $Shortcut.WorkingDirectory = $REPO_DIR
-$Shortcut.Description = "Launch OpenClaw Gateway + Claw3D Mission Control"
+$Shortcut.Description = "Launch OpenClaw Gateway and Claw3D Mission Control"
 $Shortcut.Save()
-Ok "Desktop shortcut: $shortcutPath"
+Ok "Desktop shortcut created"
 
-# ── 7. Stop existing, launch everything ───────────────────────────
-Log "Stopping any existing services..."
-Get-Process -Name "node" -ErrorAction SilentlyContinue | Where-Object { $_.CommandLine -match "openclaw|claw3d|server/index" } | Stop-Process -Force -ErrorAction SilentlyContinue
-Start-Sleep -Seconds 2
+# 7. Stop existing services
+Log "Stopping any running services..."
+Get-Process -Name "node" -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
+Start-Sleep 2
 
+# 8. Start Gateway
 Log "Starting OpenClaw Gateway..."
-Start-Process -NoNewWindow -FilePath "openclaw" -ArgumentList "gateway","--port","$GATEWAY_PORT" -RedirectStandardOutput "$env:TEMP\openclaw-gateway.log" -RedirectStandardError "$env:TEMP\openclaw-gateway-err.log"
-Start-Sleep -Seconds 3
-
-# Check gateway
+Start-Process -FilePath "openclaw" -ArgumentList "gateway --port $GATEWAY_PORT" -WindowStyle Hidden
+Start-Sleep 3
 try {
     $health = openclaw health 2>&1
     Ok "Gateway running"
-    if ($health -match "Telegram") {
-        Ok "Telegram channel active — DM your bot to pair!"
+    $healthStr = $health | Out-String
+    if ($healthStr -match "Telegram") {
+        Ok "Telegram channel active - DM your bot to pair!"
     }
 } catch {
-    Fail "Gateway may not be running. Check: openclaw health"
+    Fail "Gateway might not be running. Run: openclaw health"
 }
 
+# 9. Start Claw3D
 Log "Starting Claw3D..."
 $env:HOST = "127.0.0.1"
 $env:PORT = "$CLAW3D_PORT"
 $env:STUDIO_ACCESS_TOKEN = $STUDIO_TOKEN
 $env:NEXT_PUBLIC_GATEWAY_URL = "ws://127.0.0.1:$GATEWAY_PORT"
-Push-Location $CLAW3D_DIR
-Start-Process -NoNewWindow -FilePath "node" -ArgumentList "server/index.js" -RedirectStandardOutput "$env:TEMP\claw3d.log" -RedirectStandardError "$env:TEMP\claw3d-err.log"
-Pop-Location
-Start-Sleep -Seconds 4
+Start-Process -FilePath "node" -ArgumentList "server/index.js" -WorkingDirectory $CLAW3D_DIR -WindowStyle Hidden
+Start-Sleep 4
 Ok "Claw3D running on port $CLAW3D_PORT"
 
-# ── 8. Open browser ──────────────────────────────────────────────
-Log "Opening Claw3D in your browser..."
+# 10. Open browser
+Log "Opening browser..."
 Start-Process "http://127.0.0.1:$CLAW3D_PORT/office"
 
 Write-Host ""
-Write-Host "╔═══════════════════════════════════════════════════════════╗" -ForegroundColor Cyan
-Write-Host "║           🦞  OpenClaw HexChess — READY  🦞              ║" -ForegroundColor Cyan
-Write-Host "╠═══════════════════════════════════════════════════════════╣" -ForegroundColor Cyan
-Write-Host "║                                                           ║" -ForegroundColor Cyan
-Write-Host "║  Office:   http://127.0.0.1:$CLAW3D_PORT/office               ║" -ForegroundColor Cyan
-Write-Host "║  Agents:   http://127.0.0.1:$CLAW3D_PORT/agents               ║" -ForegroundColor Cyan
-Write-Host "║  Builder:  http://127.0.0.1:$CLAW3D_PORT/office/builder       ║" -ForegroundColor Cyan
-Write-Host "║  Gateway:  http://127.0.0.1:$GATEWAY_PORT                     ║" -ForegroundColor Cyan
-Write-Host "║                                                           ║" -ForegroundColor Cyan
-Write-Host "║  Telegram: DM your bot to pair!                           ║" -ForegroundColor Cyan
-Write-Host "║                                                           ║" -ForegroundColor Cyan
-Write-Host "╚═══════════════════════════════════════════════════════════╝" -ForegroundColor Cyan
+Write-Host "========================================" -ForegroundColor Green
+Write-Host "  OpenClaw HexChess is READY" -ForegroundColor Green
+Write-Host "========================================" -ForegroundColor Green
+Write-Host "  Office:   http://127.0.0.1:$CLAW3D_PORT/office" -ForegroundColor White
+Write-Host "  Agents:   http://127.0.0.1:$CLAW3D_PORT/agents" -ForegroundColor White
+Write-Host "  Builder:  http://127.0.0.1:$CLAW3D_PORT/office/builder" -ForegroundColor White
+Write-Host "  Gateway:  http://127.0.0.1:$GATEWAY_PORT" -ForegroundColor White
+Write-Host "  Telegram: DM your bot to pair!" -ForegroundColor White
+Write-Host "========================================" -ForegroundColor Green
 Write-Host ""
