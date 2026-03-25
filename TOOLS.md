@@ -1,4 +1,4 @@
-# TOOLS.md - Local Notes
+# TOOLS.md - HexClaw Environment
 
 ## Services
 
@@ -32,9 +32,32 @@
 - **Location:** `~/Desktop/OpenClaw-HexChess.desktop`
 - Launches gateway + Claw3D and opens the office in your browser
 
+## Hermit Notation Project Files
+
+### Core Specifications
+- **HNLPS_RULES.md** -- The 6 non-negotiable rules for HNLPS
+- **HNLPS_SUPPLEMENT.md** -- 19 supplement sections (S0-S19) with extended language features
+- **HERMIT_NOTATION_SPEC.md** -- Original full HN specification
+
+### Agent Directories
+- `agents/lexis/` -- DataScribe (legal research)
+- `agents/drafter/` -- DataDancer (language design)
+- `agents/compiler/` -- DataHerald (implementation)
+- `agents/analyst/` -- DataDaemon (translation/testing)
+- `agents/arbiter/` -- DataFortuna (project lead/QA)
+
+### Shared Communication Hub
+- `shared/` -- Inter-agent task and result exchange (see AGENTS.md for directory structure)
+
+## Team Communication
+
+To delegate work to agents, write task files to the `shared/` directory. Each agent checks its incoming directories on heartbeats.
+
+To communicate directly with an agent during a session, address them by their role directory name.
+
 ## Notes
 
 - Google Fonts are unavailable in this environment; Claw3D layout.tsx patched to use system font fallbacks
 - Memory search disabled (no embedding provider)
-- Gateway systemd service unavailable (container) — use foreground or nohup
-- Telegram probe fails in container (no outbound to api.telegram.org) — works on real machine
+- Gateway systemd service unavailable (container) -- use foreground or nohup
+- Telegram probe fails in container (no outbound to api.telegram.org) -- works on real machine
