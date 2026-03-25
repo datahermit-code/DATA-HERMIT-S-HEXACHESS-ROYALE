@@ -1,40 +1,29 @@
 # TOOLS.md - Local Notes
 
-Skills define _how_ tools work. This file is for _your_ specifics — the stuff that's unique to your setup.
+## Services
 
-## What Goes Here
+### OpenClaw Gateway
+- **URL:** `ws://127.0.0.1:18789`
+- **Bind:** LAN (`0.0.0.0`)
+- **Auth:** token (stored in `~/.openclaw/openclaw.json`)
+- **Logs:** `/tmp/openclaw-gateway.log`
 
-Things like:
+### Claw3D Mission Control
+- **Office:** `http://127.0.0.1:3000/office`
+- **Builder:** `http://127.0.0.1:3000/office/builder`
+- **Agents:** `http://127.0.0.1:3000/agents`
+- **Auth cookie:** `studio_access=9be097544762f49a3a637d14a2569d54919ba44d68b3c598`
+- **Source:** `~/.openclaw/Claw3D`
+- **Logs:** `/tmp/claw3d.log`
 
-- Camera names and locations
-- SSH hosts and aliases
-- Preferred voices for TTS
-- Speaker/room names
-- Device nicknames
-- Anything environment-specific
-
-## Examples
-
-```markdown
-### Cameras
-
-- living-room → Main area, 180° wide angle
-- front-door → Entrance, motion-triggered
-
-### SSH
-
-- home-server → 192.168.1.100, user: admin
-
-### TTS
-
-- Preferred voice: "Nova" (warm, slightly British)
-- Default speaker: Kitchen HomePod
+### Quick Start/Stop
+```bash
+./start-services.sh        # Start gateway + Claw3D
+./start-services.sh --stop # Stop both
 ```
 
-## Why Separate?
+## Notes
 
-Skills are shared. Your setup is yours. Keeping them apart means you can update skills without losing your notes, and share skills without leaking your infrastructure.
-
----
-
-Add whatever helps you do your job. This is your cheat sheet.
+- Google Fonts are unavailable in this environment; Claw3D layout.tsx patched to use system font fallbacks
+- Memory search disabled (no embedding provider)
+- Gateway systemd service unavailable (container) — use foreground or nohup
