@@ -186,6 +186,8 @@ Maintain project status in `memory/project-status.md`:
 - DataHerald: [active task / idle / blocked by X]
 - DataDaemon: [active task / idle / blocked by X]
 - DataFortuna: [active task / idle / blocked by X]
+- DataSensei: [active task / idle / blocked by X]
+- DataForge: [active task / idle / blocked by X]
 
 ### Recent Completions
 - [date]: [what was completed]
@@ -226,6 +228,15 @@ shared/
   analyst-to-arbiter/   -- DataDaemon -> DataFortuna (translations for review)
   analyst-to-lexis/     -- DataDaemon -> DataScribe (analysis requests)
   arbiter-to-*/         -- DataFortuna -> each agent (decisions, corrections)
+  sensei-to-analyst/    -- DataSensei -> DataDaemon (training exercises)
+  sensei-to-forge/      -- DataSensei -> DataForge (evaluation results)
+  sensei-to-drafter/    -- DataSensei -> DataDancer (syntax questions)
+  sensei-to-arbiter/    -- DataSensei -> DataFortuna (quality standards)
+  forge-to-sensei/      -- DataForge -> DataSensei (training materials)
+  forge-to-drafter/     -- DataForge -> DataDancer (enhancement proposals)
+  forge-to-compiler/    -- DataForge -> DataHerald (KB patches)
+  forge-to-lexis/       -- DataForge -> DataScribe (analysis requests)
+  forge-to-arbiter/     -- DataForge -> DataFortuna (progress reports)
 ```
 
 Create these directories as needed. Agents check their incoming directories on heartbeats.
